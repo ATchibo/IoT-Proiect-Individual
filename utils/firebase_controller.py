@@ -70,13 +70,17 @@ class FirebaseController:
 
     def register_raspberry(self, rpi_info: RaspberryInfo) -> bool:
         print("Registering raspberry with id: " + rpi_info.raspberryId)
+        print("Raspberry info: " + str(rpi_info.to_dict()))
 
         if self.db is None:
             raise FirebaseUninitializedException()
 
         print("Registering raspberry: db is not none")
 
-        if not self._is_raspberry_registered(rpi_info.raspberryId):
+        _is_registered = self._is_raspberry_registered(rpi_info.raspberryId)
+        print("Is registered: " + str(_is_registered))
+
+        if not _is_registered:
             print("Registering raspberry: " + rpi_info.raspberryId)
             self.db.collection(self._raspberryInfoCollectionName).document(rpi_info.raspberryId).set(rpi_info.to_dict())
 
@@ -89,6 +93,10 @@ class FirebaseController:
             raise FirebaseUninitializedException()
 
         doc_ref = self.db.collection(self._raspberryInfoCollectionName).document(serial)
+
+        if not doc_ref.get().exists:
+            return None
+
         doc_dict = doc_ref.get().to_dict()
 
         rasp_info = RaspberryInfo().from_dict(doc_dict)
@@ -157,18 +165,18 @@ class FirebaseController:
                 watering_program_data["id"] = doc_snapshot.id
                 watering_programs.append(WateringProgram().fromDict(watering_program_data))
 
-        global_watering_programs_ref = self.db.collection(self._globalWateringProgramsCollectionName)
-
-        global_watering_programs = []
-
-        for doc_snapshot in global_watering_programs_ref.get():
-            global_watering_program_data = doc_snapshot.to_dict()
-
-            if global_watering_program_data:
-                global_watering_program_data["id"] = doc_snapshot.id
-                global_watering_programs.append(WateringProgram().fromDict(global_watering_program_data))
-
-        watering_programs.extend(global_watering_programs)
+        # global_watering_programs_ref = self.db.collection(self._globalWateringProgramsCollectionName)
+        #
+        # global_watering_programs = []
+        #
+        # for doc_snapshot in global_watering_programs_ref.get():
+        #     global_watering_program_data = doc_snapshot.to_dict()
+        #
+        #     if global_watering_program_data:
+        #         global_watering_program_data["id"] = doc_snapshot.id
+        #         global_watering_programs.append(WateringProgram().fromDict(global_watering_program_data))
+        #
+        # watering_programs.extend(global_watering_programs)
         return watering_programs
 
     def get_active_watering_program_id(self, raspberry_id) -> str | None:
@@ -261,7 +269,7 @@ class FirebaseController:
 
         return True
 
-    def register_raspberry_to_device(self, raspberry_id, device_id) -> bool:
+    def link_raspberry_to_device(self, raspberry_id, device_id) -> bool:
         if self.db is None:
             raise FirebaseUninitializedException()
 
