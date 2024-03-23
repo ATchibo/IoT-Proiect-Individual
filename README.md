@@ -1,2 +1,4 @@
-# Licenta-Raspberry
+# IoT individual project
+
+
  
