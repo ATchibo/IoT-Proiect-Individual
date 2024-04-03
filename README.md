@@ -7,7 +7,7 @@ I have created a system that has the capability of measuring the soil moisture o
 
 ## Schema
 ![schema_1_bb](https://github.com/ATchibo/IoT-Proiect-Individual/assets/44547421/d5bbeeab-4f70-41f4-854b-3b5abdf0ed22)
-* built with Fritzng *
+* built with Fritzng
 * the motor is a replacement for my water pump
 * the moisture sensor I used is not the same model as the one pictured here but it works the same
 * the screen is not the real screen; in reality, my touchscreen connects to the Raspberry Pi via a 5V pin, a ground and a DSI cable.
