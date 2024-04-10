@@ -23,7 +23,7 @@ I have created a system that has the capability of measuring the soil moisture o
 - a Mosfet relay (https://www.sigmanortec.ro/Modul-IRF520-p141724639)
 - a 9V battery with terminal connector (https://cleste.ro/suport-baterie-de-9v-cu-capac.html, https://cleste.ro/baterie-alcalina-varta-industrial-9v.html)
 - a water pump (https://www.sigmanortec.ro/Pompa-Apa-Aer-cu-diafragma-6-12V-R385-p190556176)
-- two small hoses ()
+- two small hoses 
 - 7 DuPont male-male wires (https://cleste.ro/10-x-fire-dupont-tata-tata-10cm.html)
 - 7 DuPont male-female wires (https://cleste.ro/10xfire-dupont-mama-tata-20cm.html)
 - 1 DuPont female-female wire (https://cleste.ro/10-x-fire-dupont-mama-mama-10cm.html)
